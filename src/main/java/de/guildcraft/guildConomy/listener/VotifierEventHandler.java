@@ -27,17 +27,17 @@ public class VotifierEventHandler implements Listener {
 		if(vote != null) {
 			String playerName = vote.getUsername();
 			Player player = plugin.getServer().getPlayer(playerName);
-			double payment = plugin.getConfig().getDouble("vote.payment");
+			int votepoints = plugin.getConfig().getInt("votepoints");
 			
 			EbeanServer server = plugin.getDatabase();
 			Account account = server.find(Account.class).where().ieq("username", playerName).findUnique();
 			
-			account.setAmount(account.getAmount() + payment);
+			account.setVotePoints(account.getVotePoints() + votepoints);
 			server.update(account);
 			
 			player.sendMessage(ChatColor.GREEN + "[GuildConomy] " + 
 					ChatColor.WHITE + "Dein Vote ist eingegangen und dir wurden: " + 
-					ChatColor.GREEN + payment + ChatColor.WHITE + " überwiesen.");
+					ChatColor.GREEN + votepoints + ChatColor.WHITE + " Votepoints überwiesen.");
 		}
 	}
 }

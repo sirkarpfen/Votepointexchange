@@ -19,6 +19,7 @@ public class GCPlugin extends JavaPlugin{
 
 	public static Logger log;
 	private FileConfiguration config;
+	private String currency = "Taler";
 	
 	@Override
 	public void onLoad() {
@@ -51,7 +52,7 @@ public class GCPlugin extends JavaPlugin{
 	private void initConfig() {
 		config.addDefault("general.enable", true);
 		config.addDefault("general.startmoney", 40);
-		config.addDefault("vote.payment", 20);
+		config.addDefault("votepoints", 5);
 		config.options().copyDefaults(true);
 		this.saveConfig();
 	}
@@ -77,6 +78,10 @@ public class GCPlugin extends JavaPlugin{
 		List<Class<?>> classes = new ArrayList<Class<?>>();
 		classes.add(Account.class);
 		return classes;
+	}
+	
+	public String getCurrency() {
+		return currency;
 	}
 	
 }

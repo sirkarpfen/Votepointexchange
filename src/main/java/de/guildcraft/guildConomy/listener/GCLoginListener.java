@@ -28,7 +28,8 @@ public class GCLoginListener implements Listener{
 		if(account == null) {
 			account = server.createEntityBean(Account.class);
 			account.setUsername(player.getName());
-			account.setAmount(plugin.getConfig().getDouble("general.startmoney"));
+			account.setTaler(plugin.getConfig().getDouble("general.startmoney"));
+			account.setVotePoints(0);
 			server.save(account);
 		}
 	}

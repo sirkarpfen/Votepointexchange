@@ -19,7 +19,9 @@ public class Account {
 	@Column (nullable = false, unique = true)
 	private String username;
 	@Column
-	private double amount;
+	private double taler;
+	@Column
+	private int votepoints;
 	
 	// ---------------------------------------------------------------------------------------------
 	
@@ -43,12 +45,22 @@ public class Account {
 	
 	// ---------------------------------------------------------------------------------------------
 	
-	public double getAmount() {
-		return amount;
+	public double getTaler() {
+		return taler;
 	}
 	
-	public void setAmount(double amount) {
-		this.amount = amount;
+	public void setTaler(double taler) {
+		this.taler = taler;
+	}
+	
+	// ---------------------------------------------------------------------------------------------
+	
+	public int getVotePoints() {
+		return votepoints;
+	}
+	
+	public void setVotePoints(int votepoints) {
+		this.votepoints = votepoints;
 	}
 	
 }
