@@ -1,14 +1,14 @@
-package de.guildcraft.guildConomy.manager;
+package de.guildcraft.guildConomy.commands;
 
 import org.bukkit.entity.Player;
 
 import de.guildcraft.guildConomy.GCPlugin;
 
-public class GCHelpCommand extends GCSubcommand {
+public class GCDeleteCommand extends GCSubcommand {
 
-	public GCHelpCommand(GCPlugin plugin) {
+	public GCDeleteCommand(GCPlugin plugin) {
 		super(plugin);
-		permission = "guildconomy.help";
+		permission = "guildconomy.delete";
 	}
 
 	@Override

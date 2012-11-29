@@ -10,9 +10,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.guildcraft.guildConomy.commands.GCCommand;
 import de.guildcraft.guildConomy.listener.GCLoginListener;
 import de.guildcraft.guildConomy.listener.VotifierEventHandler;
-import de.guildcraft.guildConomy.manager.GCCommand;
 import de.guildcraft.guildConomy.persistence.Account;
 
 public class GCPlugin extends JavaPlugin{

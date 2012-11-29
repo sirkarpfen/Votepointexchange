@@ -1,14 +1,14 @@
-package de.guildcraft.guildConomy.manager;
+package de.guildcraft.guildConomy.commands;
 
 import org.bukkit.entity.Player;
 
 import de.guildcraft.guildConomy.GCPlugin;
 
-public class GCBalanceCommand extends GCSubcommand {
+public class GCSetCommand extends GCSubcommand {
 
-	public GCBalanceCommand(GCPlugin plugin) {
+	public GCSetCommand(GCPlugin plugin) {
 		super(plugin);
-		permission = "guildconomy.balance";
+		permission = "guildconomy.set";
 	}
 
 	@Override

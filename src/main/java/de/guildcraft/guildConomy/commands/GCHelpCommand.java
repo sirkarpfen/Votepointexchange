@@ -1,14 +1,14 @@
-package de.guildcraft.guildConomy.manager;
+package de.guildcraft.guildConomy.commands;
 
 import org.bukkit.entity.Player;
 
 import de.guildcraft.guildConomy.GCPlugin;
 
-public class GCPayCommand extends GCSubcommand {
+public class GCHelpCommand extends GCSubcommand {
 
-	public GCPayCommand(GCPlugin plugin) {
+	public GCHelpCommand(GCPlugin plugin) {
 		super(plugin);
-		permission = "guildconomy.pay";
+		permission = "guildconomy.help";
 	}
 
 	@Override
