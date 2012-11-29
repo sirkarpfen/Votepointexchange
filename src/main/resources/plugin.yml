@@ -6,4 +6,4 @@ database: true
 description The second most important plugin for guild-craft.de
 depend: [Votifier]
 commands:
-    eco:
+    money:
