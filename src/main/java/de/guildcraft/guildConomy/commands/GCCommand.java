@@ -15,12 +15,14 @@ public class GCCommand implements CommandExecutor{
 	
 	private final Map<String, GCSubcommand> subcommands = new HashMap<String, GCSubcommand> ();
 	
+	GCBalanceCommand balanceCommand;
+	
 	public GCCommand(GCPlugin plugin) {
-		subcommands.put("", new GCHelpCommand(plugin));
+		subcommands.put("help", new GCHelpCommand(plugin));
 		subcommands.put("set", new GCSetCommand(plugin));
 		subcommands.put("delete", new GCDeleteCommand(plugin));
 		subcommands.put("pay", new GCPayCommand(plugin));
-		subcommands.put("balance", new GCBalanceCommand(plugin));
+		balanceCommand = new GCBalanceCommand(plugin);
 	}
 	
 	// ---------------------------------------------------------------------------------------------
@@ -32,6 +34,8 @@ public class GCCommand implements CommandExecutor{
 					return entry.getValue().permissionExecute(sender, getSubArgs(args));
 				}
 			}
+		} else {
+			balanceCommand.permissionExecute(sender, new String[0]);
 		}
 		sender.sendMessage(ChatColor.RED + "Der Befehl wurde leider nicht gefunden");
 		return false;

@@ -2,7 +2,10 @@ package de.guildcraft.guildConomy.commands;
 
 import org.bukkit.entity.Player;
 
+import com.avaje.ebean.EbeanServer;
+
 import de.guildcraft.guildConomy.GCPlugin;
+import de.guildcraft.guildConomy.persistence.Account;
 
 public class GCBalanceCommand extends GCSubcommand {
 
@@ -13,8 +16,10 @@ public class GCBalanceCommand extends GCSubcommand {
 
 	@Override
 	public boolean execute(Player player, String[] args) {
-		// TODO Auto-generated method stub
-		return false;
+		EbeanServer server = plugin.getDatabase();
+		Account account = server.find(Account.class).where().ieq("username", player.getName()).findUnique();
+		player.sendMessage(String.valueOf(account.getTaler()));
+		return true;
 	}
 
 }
