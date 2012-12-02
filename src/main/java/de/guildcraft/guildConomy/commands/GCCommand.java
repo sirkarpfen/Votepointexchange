@@ -20,8 +20,10 @@ public class GCCommand implements CommandExecutor{
 	public GCCommand(GCPlugin plugin) {
 		subcommands.put("help", new GCHelpCommand(plugin));
 		subcommands.put("set", new GCSetCommand(plugin));
-		subcommands.put("delete", new GCDeleteCommand(plugin));
+		subcommands.put("clear", new GCClearCommand(plugin));
 		subcommands.put("pay", new GCPayCommand(plugin));
+		subcommands.put("give", new GCGiveCommand(plugin));
+		subcommands.put("take", new GCTakeCommand(plugin));
 		balanceCommand = new GCBalanceCommand(plugin);
 	}
 	

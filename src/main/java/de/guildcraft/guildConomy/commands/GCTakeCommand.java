@@ -8,16 +8,15 @@ import com.avaje.ebean.EbeanServer;
 import de.guildcraft.guildConomy.GCPlugin;
 import de.guildcraft.guildConomy.persistence.Account;
 
-public class GCSetCommand extends GCSubcommand {
+public class GCTakeCommand extends GCSubcommand {
 
-	public GCSetCommand(GCPlugin plugin) {
+	public GCTakeCommand(GCPlugin plugin) {
 		super(plugin);
-		permission = "guildconomy.admin.set";
+		permission = "guildconomy.admin.take";
 	}
 
 	@Override
 	public boolean execute(Player player, String[] args) {
-		
 		if(args.length != 2) {
 			player.sendMessage(ChatColor.RED + "Bitte überprüfe die Argumente.");
 			return true;
@@ -30,16 +29,25 @@ public class GCSetCommand extends GCSubcommand {
 			return true;
 		}
 		
+		double balance = account.getTaler();
+		double amount = 0.0;
 		try {
-			account.setTaler(Double.parseDouble(args[1]));
+			amount = Double.parseDouble(args[1]);
 		} catch (NumberFormatException e) {
 			player.sendMessage(ChatColor.RED + "Bitte nur Zahlen als Betrag eingeben.");
 			return true;
 		}
 		
+		balance = balance - amount;
+		balance = Math.round(balance*100)/100.0;
+		
+		account.setTaler(balance);
+		
 		server.update(account);
-		player.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.GRAY + args[0] + "\'s Account wurde auf " +
-				ChatColor.WHITE + args[1] + " Taler " + ChatColor.GRAY + "gesetzt.");
+		
+		player.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.GRAY + "Du hast dem Account von " + 
+				ChatColor.WHITE + args[1] + ChatColor.GRAY + ", " + ChatColor.WHITE + args[0] + ChatColor.GRAY + " abgezogen.");
+		
 		return true;
 	}
 

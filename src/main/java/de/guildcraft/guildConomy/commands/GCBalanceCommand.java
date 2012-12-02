@@ -1,5 +1,6 @@
 package de.guildcraft.guildConomy.commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import com.avaje.ebean.EbeanServer;
@@ -16,9 +17,19 @@ public class GCBalanceCommand extends GCSubcommand {
 
 	@Override
 	public boolean execute(Player player, String[] args) {
+		if(args.length > 1) {
+			player.sendMessage(ChatColor.RED + "Bitte überprüfe die Argumente.");
+			return true;
+		}
+		
 		EbeanServer server = plugin.getDatabase();
 		Account account = server.find(Account.class).where().ieq("username", player.getName()).findUnique();
-		player.sendMessage(String.valueOf(account.getTaler()));
+		if(args.length == 1 && args[0].equalsIgnoreCase("-v")) {
+			player.sendMessage(ChatColor.GOLD + "[GuildConomy] Votepoints: " + ChatColor.WHITE +
+					String.valueOf(account.getVotePoints()));
+		}
+		
+		player.sendMessage(ChatColor.GOLD + "[GuildConomy] Balance: " + ChatColor.WHITE + String.valueOf(account.getTaler()));
 		return true;
 	}
 

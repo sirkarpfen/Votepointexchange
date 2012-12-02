@@ -8,17 +8,16 @@ import com.avaje.ebean.EbeanServer;
 import de.guildcraft.guildConomy.GCPlugin;
 import de.guildcraft.guildConomy.persistence.Account;
 
-public class GCSetCommand extends GCSubcommand {
+public class GCClearCommand extends GCSubcommand {
 
-	public GCSetCommand(GCPlugin plugin) {
+	public GCClearCommand(GCPlugin plugin) {
 		super(plugin);
-		permission = "guildconomy.admin.set";
+		permission = "guildconomy.admin.clear";
 	}
 
 	@Override
 	public boolean execute(Player player, String[] args) {
-		
-		if(args.length != 2) {
+		if(args.length != 1) {
 			player.sendMessage(ChatColor.RED + "Bitte überprüfe die Argumente.");
 			return true;
 		}
@@ -30,16 +29,12 @@ public class GCSetCommand extends GCSubcommand {
 			return true;
 		}
 		
-		try {
-			account.setTaler(Double.parseDouble(args[1]));
-		} catch (NumberFormatException e) {
-			player.sendMessage(ChatColor.RED + "Bitte nur Zahlen als Betrag eingeben.");
-			return true;
-		}
-		
+		account.setTaler(0.0);
 		server.update(account);
+		
 		player.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.GRAY + args[0] + "\'s Account wurde auf " +
-				ChatColor.WHITE + args[1] + " Taler " + ChatColor.GRAY + "gesetzt.");
+				ChatColor.WHITE + " 0.00 Taler " + ChatColor.GRAY + "gesetzt.");
+		
 		return true;
 	}
 
