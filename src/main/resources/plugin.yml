@@ -3,7 +3,7 @@ main: de.guildcraft.guildConomy.GCPlugin
 version: ${project.version}
 author: sirkarpfen, madroxxlino
 database: true
-description The second most important plugin for guild-craft.de
+description: The second most important plugin for guild-craft.de
 depend: [Votifier]
 commands:
     money:
