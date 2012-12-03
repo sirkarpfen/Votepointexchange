@@ -1,5 +1,6 @@
 package de.guildcraft.guildConomy.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -29,10 +30,12 @@ public class GCTakeCommand extends GCSubcommand {
 			return true;
 		}
 		
+		Player recipient = Bukkit.getPlayer(args[0]);
+		
 		double balance = account.getTaler();
 		double amount = 0.0;
 		try {
-			amount = Double.parseDouble(args[1]);
+			amount = Math.round(Double.parseDouble(args[1])*100)/100;
 		} catch (NumberFormatException e) {
 			player.sendMessage(ChatColor.RED + "Bitte nur Zahlen als Betrag eingeben.");
 			return true;
@@ -46,7 +49,13 @@ public class GCTakeCommand extends GCSubcommand {
 		server.update(account);
 		
 		player.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.GRAY + "Du hast dem Account von " + 
-				ChatColor.WHITE + args[1] + ChatColor.GRAY + ", " + ChatColor.WHITE + args[0] + ChatColor.GRAY + " abgezogen.");
+				ChatColor.WHITE + args[0] + ChatColor.GRAY + ", " + ChatColor.WHITE + String.valueOf(amount) + 
+				ChatColor.GRAY + " abgezogen.");
+		
+		if(recipient != null) {
+			recipient.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.GRAY + "Dir wurden " +
+					ChatColor.WHITE + String.valueOf(amount) +" Taler " + ChatColor.GRAY + "abgezogen.");
+		}
 		
 		return true;
 	}

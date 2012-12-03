@@ -1,5 +1,6 @@
 package de.guildcraft.guildConomy.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -29,11 +30,18 @@ public class GCClearCommand extends GCSubcommand {
 			return true;
 		}
 		
+		Player recipient = Bukkit.getPlayer(args[0]);
+		
 		account.setTaler(0.0);
 		server.update(account);
 		
 		player.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.GRAY + args[0] + "\'s Account wurde auf " +
 				ChatColor.WHITE + " 0.00 Taler " + ChatColor.GRAY + "gesetzt.");
+		
+		if(recipient != null) {
+			recipient.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.GRAY + "Dein Account wurde auf " + 
+					ChatColor.WHITE + "0.00 Taler " + ChatColor.GRAY + "gesetzt.");
+		}
 		
 		return true;
 	}

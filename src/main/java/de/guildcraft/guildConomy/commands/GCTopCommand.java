@@ -34,7 +34,7 @@ public class GCTopCommand extends GCSubcommand {
 		
 		player.sendMessage(ChatColor.GOLD + "-----[ " + ChatColor.WHITE + "Die reichsten Spieler" + ChatColor.GOLD + " ]-----");
 		for(int i = 0; i < 5; i++) {
-			if(i > topList.size()) {
+			if(i > (topList.size() - 1)) {
 				continue;
 			}
 			Account account = topList.get(i);

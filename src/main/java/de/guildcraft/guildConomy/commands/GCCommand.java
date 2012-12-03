@@ -24,6 +24,8 @@ public class GCCommand implements CommandExecutor{
 		subcommands.put("pay", new GCPayCommand(plugin));
 		subcommands.put("give", new GCGiveCommand(plugin));
 		subcommands.put("take", new GCTakeCommand(plugin));
+		subcommands.put("top", new GCTopCommand(plugin));
+		subcommands.put("record", new GCRecordCommand(plugin));
 		balanceCommand = new GCBalanceCommand(plugin);
 	}
 	
@@ -37,7 +39,7 @@ public class GCCommand implements CommandExecutor{
 				}
 			}
 		} else {
-			balanceCommand.permissionExecute(sender, new String[0]);
+			return balanceCommand.permissionExecute(sender, new String[0]);
 		}
 		sender.sendMessage(ChatColor.RED + "Der Befehl wurde leider nicht gefunden");
 		return false;

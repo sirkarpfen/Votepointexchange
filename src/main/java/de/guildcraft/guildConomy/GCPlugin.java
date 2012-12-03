@@ -38,7 +38,7 @@ public class GCPlugin extends JavaPlugin{
 		}
 		if(config.getBoolean("general.enable")) {
 			this.registerEvents();
-			this.getCommand("eco").setExecutor(new GCCommand(this));
+			this.getCommand("money").setExecutor(new GCCommand(this));
 		} else {
 			log.info("Disabled. Check config.yml.");
 			this.getServer().getPluginManager().disablePlugin(this);

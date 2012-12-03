@@ -14,7 +14,8 @@ import de.guildcraft.guildConomy.persistence.Transaction;
 
 public class GCRecordCommand extends GCSubcommand {
 	
-	private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd 'um' HH:mm:ss");
+	private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+	private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 	private final int defEntries = plugin.getConfig().getInt("general.max_record_entries");
 	
 	public GCRecordCommand(GCPlugin plugin) {
@@ -30,8 +31,10 @@ public class GCRecordCommand extends GCSubcommand {
 		}
 		
 		EbeanServer server = plugin.getDatabase();
-		List<Transaction> transListIn = server.find(Transaction.class).where().ieq("recipient", player.getName()).findList();
-		List<Transaction> transListOut = server.find(Transaction.class).where().ieq("depositor", player.getName()).findList();
+		List<Transaction> transListIn = 
+				server.find(Transaction.class).where().ieq("recipient", player.getName()).orderBy().desc("date").findList();
+		List<Transaction> transListOut = 
+				server.find(Transaction.class).where().ieq("depositor", player.getName()).orderBy().desc("date").findList();
 		if(args[0].equalsIgnoreCase("in")) {
 			if(transListIn == null || transListIn.isEmpty()) {
 				player.sendMessage(ChatColor.RED + "Du hast keine eingegangenen Transaktionen");
@@ -65,7 +68,8 @@ public class GCRecordCommand extends GCSubcommand {
 			Date date = transaction.getDate();
 			player.sendMessage(ChatColor.GRAY + String.valueOf(i) + ". " + ChatColor.GOLD + "Sender: " + 
 					ChatColor.GRAY + depositor + ChatColor.GOLD + " Betrag: " + ChatColor.GRAY + String.valueOf(amount) + " Taler" +
-					ChatColor.GOLD + " Datum: " + ChatColor.GRAY + dateFormat.format(date));
+					ChatColor.GOLD + " Datum: " + ChatColor.GRAY + dateFormat.format(date) + '\n' + "   " + 
+					ChatColor.GOLD + "Zeit: " + ChatColor.GRAY + timeFormat.format(date));
 		}
 	}
 	
@@ -81,7 +85,8 @@ public class GCRecordCommand extends GCSubcommand {
 			Date date = transaction.getDate();
 			player.sendMessage(ChatColor.GRAY + String.valueOf(i) + ". " + ChatColor.GOLD + "Empfänger: " + 
 					ChatColor.GRAY + recipient + ChatColor.GOLD + " Betrag: " + ChatColor.GRAY + String.valueOf(amount) + " Taler" +
-					ChatColor.GOLD + " Datum: " + ChatColor.GRAY + dateFormat.format(date));
+					ChatColor.GOLD + " Datum: " + ChatColor.GRAY + dateFormat.format(date) + '\n' + "   " + 
+					ChatColor.GOLD + "Zeit: " + ChatColor.GRAY + timeFormat.format(date));
 		}
 	}
 

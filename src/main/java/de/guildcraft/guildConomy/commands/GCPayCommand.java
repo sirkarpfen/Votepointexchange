@@ -2,6 +2,7 @@ package de.guildcraft.guildConomy.commands;
 
 import java.util.Date;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -34,6 +35,8 @@ public class GCPayCommand extends GCSubcommand {
 			return true;
 		}
 		
+		Player recipient = Bukkit.getPlayer(args[0]);
+		
 		double withdrawBalance = accountWithdraw.getTaler();
 		double depositBalance = accountDeposit.getTaler();
 		double amount = 0.0;
@@ -64,7 +67,14 @@ public class GCPayCommand extends GCSubcommand {
 		server.save(transaction);
 		
 		player.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.GRAY + "Du hast " + ChatColor.WHITE + 
-				String.valueOf(amount)+ ChatColor.GRAY + " an " + ChatColor.WHITE + args[0] + ChatColor.GRAY + " überwiesen.");
+				String.valueOf(amount) + " Taler" + ChatColor.GRAY + " an " + ChatColor.WHITE + args[0] + 
+				ChatColor.GRAY + " überwiesen.");
+		
+		if(recipient != null) {
+			recipient.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.GRAY + "Dir wurden " + 
+					ChatColor.WHITE + String.valueOf(amount) + " Taler " + ChatColor.GRAY + "gutgeschrieben.");
+		}
+		
 		return true;
 	}
 

@@ -1,5 +1,6 @@
 package de.guildcraft.guildConomy.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -30,16 +31,27 @@ public class GCSetCommand extends GCSubcommand {
 			return true;
 		}
 		
+		Player recipient = Bukkit.getPlayer(args[0]);
+		
+		double amount = 0;
 		try {
-			account.setTaler(Double.parseDouble(args[1]));
+			amount = Math.round(Double.parseDouble(args[1])*100)/100.0;
 		} catch (NumberFormatException e) {
 			player.sendMessage(ChatColor.RED + "Bitte nur Zahlen als Betrag eingeben.");
 			return true;
 		}
 		
+		account.setTaler(amount);
 		server.update(account);
+		
 		player.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.GRAY + args[0] + "\'s Account wurde auf " +
-				ChatColor.WHITE + args[1] + " Taler " + ChatColor.GRAY + "gesetzt.");
+				ChatColor.WHITE + String.valueOf(amount) + " Taler " + ChatColor.GRAY + "gesetzt.");
+		
+		if(recipient != null) {
+			recipient.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.GRAY + "Dein Konto wurde auf " + 
+					ChatColor.WHITE + String.valueOf(amount) + " Taler " + ChatColor.GRAY + "gesetzt.");
+		}
+		
 		return true;
 	}
 

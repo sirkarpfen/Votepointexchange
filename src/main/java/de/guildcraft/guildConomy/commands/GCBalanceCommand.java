@@ -26,7 +26,7 @@ public class GCBalanceCommand extends GCSubcommand {
 		Account account = server.find(Account.class).where().ieq("username", player.getName()).findUnique();
 		if(args.length == 1 && args[0].equalsIgnoreCase("-v")) {
 			player.sendMessage(ChatColor.GOLD + "[GuildConomy] Votepoints: " + ChatColor.WHITE +
-					String.valueOf(account.getVotePoints()));
+					String.valueOf(account.getVotepoints()));
 		}
 		
 		player.sendMessage(ChatColor.GOLD + "[GuildConomy] Balance: " + ChatColor.WHITE + String.valueOf(account.getTaler()));
