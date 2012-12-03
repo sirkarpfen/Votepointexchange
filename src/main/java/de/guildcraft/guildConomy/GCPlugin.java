@@ -14,6 +14,8 @@ import de.guildcraft.guildConomy.commands.GCCommand;
 import de.guildcraft.guildConomy.listener.GCLoginListener;
 import de.guildcraft.guildConomy.listener.VotifierEventHandler;
 import de.guildcraft.guildConomy.persistence.Account;
+import de.guildcraft.guildConomy.persistence.Transaction;
+import de.guildcraft.guildConomy.votepointExchange.SignListener;
 
 public class GCPlugin extends JavaPlugin{
 
@@ -52,7 +54,9 @@ public class GCPlugin extends JavaPlugin{
 	private void initConfig() {
 		config.addDefault("general.enable", true);
 		config.addDefault("general.startmoney", 40);
-		config.addDefault("votepoints", 5);
+		config.addDefault("general.max_record_entries", 5);
+		config.addDefault("votepoints.startpoints", 0);
+		config.addDefault("votepoints.points_for_each_vote", 5);
 		config.options().copyDefaults(true);
 		this.saveConfig();
 	}
@@ -61,6 +65,7 @@ public class GCPlugin extends JavaPlugin{
 		PluginManager manager = this.getServer().getPluginManager();
 		manager.registerEvents(new VotifierEventHandler(this), this);
 		manager.registerEvents(new GCLoginListener(this), this);
+		manager.registerEvents(new SignListener(this), this);
 	}
 	
 	private void setupPersistence() {
@@ -77,6 +82,7 @@ public class GCPlugin extends JavaPlugin{
 	public List<Class<?>> getDatabaseClasses() {
 		List<Class<?>> classes = new ArrayList<Class<?>>();
 		classes.add(Account.class);
+		classes.add(Transaction.class);
 		return classes;
 	}
 	
