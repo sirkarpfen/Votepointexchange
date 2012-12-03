@@ -1,5 +1,7 @@
 package de.guildcraft.guildConomy.commands;
 
+import java.util.Date;
+
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -7,6 +9,7 @@ import com.avaje.ebean.EbeanServer;
 
 import de.guildcraft.guildConomy.GCPlugin;
 import de.guildcraft.guildConomy.persistence.Account;
+import de.guildcraft.guildConomy.persistence.Transaction;
 
 public class GCPayCommand extends GCSubcommand {
 
@@ -25,6 +28,7 @@ public class GCPayCommand extends GCSubcommand {
 		EbeanServer server = plugin.getDatabase();
 		Account accountWithdraw = server.find(Account.class).where().ieq("username", player.getName()).findUnique();
 		Account accountDeposit = server.find(Account.class).where().ieq("username", args[0]).findUnique();
+		Transaction transaction = server.createEntityBean(Transaction.class);
 		if(accountDeposit == null) {
 			player.sendMessage(ChatColor.RED + "Der Spieler " + ChatColor.GRAY + args[0] + ChatColor.WHITE + " existiert nicht.");
 			return true;
@@ -43,17 +47,24 @@ public class GCPayCommand extends GCSubcommand {
 		withdrawBalance = withdrawBalance - amount;
 		depositBalance = depositBalance + amount;
 		
+		amount = Math.round(amount*100)/100.0;
 		withdrawBalance = Math.round(withdrawBalance*100)/100.0;
 		depositBalance = Math.round(depositBalance*100)/100.0;
 		
 		accountWithdraw.setTaler(withdrawBalance);
 		accountDeposit.setTaler(depositBalance);
 		
+		transaction.setDepositor(player.getName());
+		transaction.setRecipient(args[0]);
+		transaction.setPayment(amount);
+		transaction.setDate(new Date());
+		
 		server.update(accountWithdraw);
 		server.update(accountDeposit);
+		server.save(transaction);
 		
-		player.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.GRAY + "Du hast " + ChatColor.WHITE + args[1] +
-				ChatColor.GRAY + " an " + ChatColor.WHITE + args[0] + ChatColor.GRAY + " überwiesen.");
+		player.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.GRAY + "Du hast " + ChatColor.WHITE + 
+				String.valueOf(amount)+ ChatColor.GRAY + " an " + ChatColor.WHITE + args[0] + ChatColor.GRAY + " überwiesen.");
 		return true;
 	}
 

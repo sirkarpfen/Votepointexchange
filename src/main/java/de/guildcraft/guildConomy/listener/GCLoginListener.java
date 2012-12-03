@@ -29,7 +29,7 @@ public class GCLoginListener implements Listener{
 			account = server.createEntityBean(Account.class);
 			account.setUsername(player.getName());
 			account.setTaler(plugin.getConfig().getDouble("general.startmoney"));
-			account.setVotePoints(0);
+			account.setVotePoints(plugin.getConfig().getInt("votepoints.startpoints"));
 			server.save(account);
 		}
 	}
