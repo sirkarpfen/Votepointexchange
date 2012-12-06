@@ -54,7 +54,7 @@ public class GCGiveCommand extends GCSubcommand {
 		
 		if(recipient != null) {
 			recipient.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.GRAY + "Dir wurden " + 
-					ChatColor.WHITE + String.valueOf(amount) + " Taler " + ChatColor.GRAY + "abgezogen.");
+					ChatColor.WHITE + String.valueOf(amount) + " Taler " + ChatColor.GRAY + "hinzugefügt.");
 		}
 		
 		return true;
