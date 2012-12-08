@@ -56,6 +56,11 @@ public class GCPayCommand extends GCSubcommand {
 		}
 		
 		withdrawBalance = withdrawBalance - amount;
+		if(withdrawBalance < 0) {
+			player.sendMessage(ChatColor.RED + "Du hast nicht genügend Taler.");
+			return true;
+		}
+		
 		depositBalance = depositBalance + amount;
 		
 		amount = Math.round(amount*100)/100.0;
@@ -109,6 +114,11 @@ public class GCPayCommand extends GCSubcommand {
 		}
 		
 		vpWithdrawBalance = vpWithdrawBalance - vp;
+		if(vpWithdrawBalance < 0) {
+			player.sendMessage(ChatColor.RED + "Du hast nicht genügend Votepoints.");
+			return;
+		}
+		
 		vpDepositBalance = vpDepositBalance + vp;
 		
 		accountWithdraw.setVotepoints(vpWithdrawBalance);

@@ -49,6 +49,11 @@ public class GCGiveCommand extends GCSubcommand {
 			return true;
 		}
 		
+		if(amount < 0) {
+			player.sendMessage(ChatColor.RED + "Bitte keine negativen Werte eingeben.");
+			return true;
+		}
+		
 		balance = balance + amount;
 		balance = Math.round(balance*100)/100.0;
 		
@@ -84,6 +89,11 @@ public class GCGiveCommand extends GCSubcommand {
 			vp = Integer.parseInt(args[2]);
 		} catch (NumberFormatException e) {
 			player.sendMessage(ChatColor.RED + "Bitte nur ganze Zahlen als Betrag eingeben.");
+			return;
+		}
+		
+		if(vp < 0) {
+			player.sendMessage(ChatColor.RED + "Bitte keine negativen Werte eingeben.");
 			return;
 		}
 		

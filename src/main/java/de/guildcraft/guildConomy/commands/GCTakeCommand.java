@@ -49,7 +49,18 @@ public class GCTakeCommand extends GCSubcommand {
 			return true;
 		}
 		
+		if(amount < 0) {
+			player.sendMessage(ChatColor.RED + "Bitte keine negativen Werte eingeben.");
+			return true;
+		}
+		
 		balance = balance - amount;
+		
+		if(balance < 0) {
+			player.sendMessage(ChatColor.RED + "Du willst dem Spieler mehr abziehen, als er besitzt.");
+			return true;
+		}
+		
 		balance = Math.round(balance*100)/100.0;
 		
 		account.setTaler(balance);
@@ -87,7 +98,17 @@ private void doVotepointsTransaction(Player player, String[] args, EbeanServer s
 			return;
 		}
 		
+		if(vp < 0) {
+			player.sendMessage(ChatColor.RED + "Bitte keine negativen Werte eingeben.");
+			return;
+		}
+		
 		vpBalance = vpBalance - vp;
+		
+		if(vpBalance < 0) {
+			player.sendMessage(ChatColor.RED + "Du willst dem Spieler mehr abziehen, als er besitzt.");
+			return;
+		}
 		
 		account.setVotepoints(vpBalance);
 		server.update(account);

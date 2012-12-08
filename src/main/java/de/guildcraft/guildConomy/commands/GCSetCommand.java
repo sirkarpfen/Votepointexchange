@@ -49,6 +49,11 @@ public class GCSetCommand extends GCSubcommand {
 			return true;
 		}
 		
+		if(amount < 0) {
+			player.sendMessage(ChatColor.RED + "Bitte keine negativen Werte eingeben.");
+			return true;
+		}
+		
 		account.setTaler(amount);
 		server.update(account);
 		
@@ -78,6 +83,11 @@ public class GCSetCommand extends GCSubcommand {
 			vp = Integer.parseInt(args[2]);
 		} catch (NumberFormatException e) {
 			player.sendMessage(ChatColor.RED + "Bitte nur ganze Zahlen als Betrag eingeben.");
+			return;
+		}
+		
+		if(vp < 0) {
+			player.sendMessage(ChatColor.RED + "Bitte keine negativen Werte eingeben.");
 			return;
 		}
 		
