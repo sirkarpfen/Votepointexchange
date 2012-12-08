@@ -71,8 +71,9 @@ public class GCPayCommand extends GCSubcommand {
 				ChatColor.GRAY + " überwiesen.");
 		
 		if(recipient != null) {
-			recipient.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.GRAY + "Dir wurden " + 
-					ChatColor.WHITE + String.valueOf(amount) + " Taler " + ChatColor.GRAY + "gutgeschrieben.");
+			recipient.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.WHITE + player.getName() + 
+					ChatColor.GRAY + " hat dir " + ChatColor.WHITE + String.valueOf(amount) + " Taler " + 
+					ChatColor.GRAY + "überwiesen.");
 		}
 		
 		return true;

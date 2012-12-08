@@ -24,11 +24,13 @@ public class GCHelpCommand extends GCSubcommand {
 				ChatColor.GRAY + "[param] = Optional");
 		
 		if(player.hasPermission("guildconomy.admin.*")) {
+			player.sendMessage(ChatColor.RED + "--------------Admin Commands--------------");
 			player.sendMessage(ChatColor.GOLD + "/money set <Spieler> <Betrag>" + ChatColor.GRAY + " - Setzt den Kontostand auf <amount>.");
 			player.sendMessage(ChatColor.GOLD + "/money clear <Spieler>" + ChatColor.GRAY + " - Löscht den gesamten Kontostand.");
 			player.sendMessage(ChatColor.GOLD + "/money give <Spieler>" + ChatColor.GRAY + " - Gibt dem Spieler Taler.");
 			player.sendMessage(ChatColor.GOLD + "/money take <Spieler>" + ChatColor.GRAY + " - Nimmt dem Spieler Taler.");
 			player.sendMessage(ChatColor.GOLD + "/money check <Spieler>" + ChatColor.GRAY + " - Zeigt den Kontostand des Spielers an.");
+			player.sendMessage(ChatColor.RED + "--------------User Commands--------------");
 		}
 		
 		player.sendMessage(ChatColor.GOLD + "/money" + ChatColor.GRAY + " - Zeigt den aktuellen Kontostand an.");
