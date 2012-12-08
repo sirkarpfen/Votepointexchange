@@ -17,19 +17,16 @@ public class GCBalanceCommand extends GCSubcommand {
 
 	@Override
 	public boolean execute(Player player, String[] args) {
-		if(args.length > 1) {
+		if(args.length > 0) {
 			player.sendMessage(ChatColor.RED + "Bitte überprüfe die Argumente.");
 			return true;
 		}
 		
 		EbeanServer server = plugin.getDatabase();
 		Account account = server.find(Account.class).where().ieq("username", player.getName()).findUnique();
-		if(args.length == 1 && args[0].equalsIgnoreCase("-v")) {
-			player.sendMessage(ChatColor.GOLD + "[GuildConomy] Votepoints: " + ChatColor.WHITE +
-					String.valueOf(account.getVotepoints()));
-		}
 		
-		player.sendMessage(ChatColor.GOLD + "[GuildConomy] Balance: " + ChatColor.WHITE + String.valueOf(account.getTaler()));
+		player.sendMessage(ChatColor.GOLD + "[GuildConomy] Balance: " + ChatColor.WHITE + String.valueOf(account.getTaler()) + 
+				" Taler.");
 		return true;
 	}
 

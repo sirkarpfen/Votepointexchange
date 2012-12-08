@@ -21,7 +21,7 @@ public class VotifierEventHandler implements Listener {
 		this.plugin = plugin;
 	}
 	
-	@EventHandler(priority=EventPriority.NORMAL)
+	@EventHandler(priority=EventPriority.HIGHEST)
 	public void onVotifierEvent(VotifierEvent e) {
 		Vote vote = e.getVote();
 		if(vote != null) {
@@ -32,7 +32,7 @@ public class VotifierEventHandler implements Listener {
 				return;
 			}
 			
-			int votepoints = plugin.getConfig().getInt("votepoints");
+			int votepoints = plugin.getConfig().getInt("votepoints.points_for_each_vote");
 			
 			EbeanServer server = plugin.getDatabase();
 			Account account = server.find(Account.class).where().ieq("username", playerName).findUnique();

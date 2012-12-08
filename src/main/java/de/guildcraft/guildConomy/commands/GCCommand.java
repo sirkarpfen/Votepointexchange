@@ -26,6 +26,8 @@ public class GCCommand implements CommandExecutor{
 		subcommands.put("take", new GCTakeCommand(plugin));
 		subcommands.put("top", new GCTopCommand(plugin));
 		subcommands.put("record", new GCRecordCommand(plugin));
+		subcommands.put("vp", new GCVotepointsCommand(plugin));
+		subcommands.put("check", new GCCheckCommand(plugin));
 		balanceCommand = new GCBalanceCommand(plugin);
 	}
 	
