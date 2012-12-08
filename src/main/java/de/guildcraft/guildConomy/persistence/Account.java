@@ -55,11 +55,11 @@ public class Account {
 	
 	// ---------------------------------------------------------------------------------------------
 	
-	public int getVotePoints() {
+	public int getVotepoints() {
 		return votepoints;
 	}
 	
-	public void setVotePoints(int votepoints) {
+	public void setVotepoints(int votepoints) {
 		this.votepoints = votepoints;
 	}
 	
