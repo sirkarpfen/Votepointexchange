@@ -19,15 +19,23 @@ public class GCSetCommand extends GCSubcommand {
 	@Override
 	public boolean execute(Player player, String[] args) {
 		
-		if(args.length != 2) {
+		if(args.length > 3 || args.length < 2) {
 			player.sendMessage(ChatColor.RED + "Bitte überprüfe die Argumente.");
 			return true;
 		}
 		
 		EbeanServer server = plugin.getDatabase();
+		
+		if(args.length == 3) {
+			if(args[0].equalsIgnoreCase("vp")) {
+				this.doVotepointsTransaction(player, args, server);
+				return true;
+			}
+		}
+		
 		Account account = server.find(Account.class).where().ieq("username", args[0]).findUnique();
 		if(account == null) {
-			player.sendMessage(ChatColor.RED + "Der Spieler " + ChatColor.GRAY + args[0] + ChatColor.WHITE + " existiert nicht.");
+			player.sendMessage(ChatColor.RED + "Der Spieler " + ChatColor.GRAY + args[0] + ChatColor.RED + " existiert nicht.");
 			return true;
 		}
 		
@@ -53,6 +61,37 @@ public class GCSetCommand extends GCSubcommand {
 		}
 		
 		return true;
+	}
+	
+	private void doVotepointsTransaction(Player player, String[] args, EbeanServer server) {
+		
+		Account account = server.find(Account.class).where().ieq("username", args[1]).findUnique();
+		if(account == null) {
+			player.sendMessage(ChatColor.RED + "Der Spieler " + ChatColor.GRAY + args[1] + ChatColor.RED + " existiert nicht.");
+			return;
+		}
+		
+		Player recipient = Bukkit.getPlayer(args[1]);
+		
+		int vp = 0;
+		try {
+			vp = Integer.parseInt(args[2]);
+		} catch (NumberFormatException e) {
+			player.sendMessage(ChatColor.RED + "Bitte nur ganze Zahlen als Betrag eingeben.");
+			return;
+		}
+		
+		account.setVotepoints(vp);
+		server.update(account);
+		
+		player.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.GRAY + args[1] + "\'s Account wurde auf " +
+				ChatColor.WHITE + String.valueOf(vp) + " Votepoints " + ChatColor.GRAY + "gesetzt.");
+		
+		if(recipient != null) {
+			recipient.sendMessage(ChatColor.GOLD + "[GuildConomy] " + ChatColor.GRAY + "Dein Konto wurde auf " + 
+					ChatColor.WHITE + String.valueOf(vp) + " Votepoints " + ChatColor.GRAY + "gesetzt.");
+		}
+		
 	}
 
 }

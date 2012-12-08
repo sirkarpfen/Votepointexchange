@@ -17,12 +17,27 @@ public class GCCheckCommand extends GCSubcommand {
 
 	@Override
 	public boolean execute(Player player, String[] args) {
-		if(args.length != 1) {
+		if(args.length > 2 || args.length < 1) {
 			player.sendMessage(ChatColor.RED + "Bitte überprüfe die Schreibweise.");
 			return true;
 		}
 		
 		EbeanServer server = plugin.getDatabase();
+		
+		if(args.length == 2) {
+			if(args[0].equalsIgnoreCase("vp")) {
+				Account account = server.find(Account.class).where().ieq("username", args[1]).findUnique();
+				if(account == null) {
+					player.sendMessage(ChatColor.RED + "Der Spieler " + ChatColor.WHITE + args[1] + ChatColor.RED + " existiert nicht.");
+					return true;
+				}
+				
+				player.sendMessage(ChatColor.GOLD + "[GuildConomy] " + args[1] + "'s Votepoints: " + ChatColor.WHITE +
+						String.valueOf(account.getVotepoints()));
+				return true;
+			}
+		}
+		
 		Account account = server.find(Account.class).where().ieq("username", args[0]).findUnique();
 		if(account == null) {
 			player.sendMessage(ChatColor.RED + "Der Spieler " + ChatColor.WHITE + args[0] + " existiert nicht.");
@@ -32,7 +47,7 @@ public class GCCheckCommand extends GCSubcommand {
 		player.sendMessage(ChatColor.GOLD + "[GuildConomy] " + args[0] + "'s Balance: " + ChatColor.WHITE +
 				String.valueOf(account.getTaler()) + " Taler.");
 		
-		return false;
+		return true;
 	}
 
 }
