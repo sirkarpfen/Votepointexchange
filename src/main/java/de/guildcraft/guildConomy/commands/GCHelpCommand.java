@@ -23,7 +23,7 @@ public class GCHelpCommand extends GCSubcommand {
 		player.sendMessage(ChatColor.GOLD + "GuildConomy command usage: " + ChatColor.AQUA + "<param> = Pflichtfeld " + 
 				ChatColor.GRAY + "[param] = Optional");
 		
-		if(player.hasPermission("guildconomy.admin.*")) {
+		if(player.hasPermission("guildconomy.admin.help")) {
 			player.sendMessage(ChatColor.RED + "--------------Admin Commands--------------");
 			player.sendMessage(ChatColor.GOLD + "/money set [vp] <Spieler> <Betrag>" + ChatColor.GRAY + " - Setzt den Kontostand/Votepoints auf <amount>.");
 			player.sendMessage(ChatColor.GOLD + "/money clear [vp] <Spieler>" + ChatColor.GRAY + " - Löscht den gesamten Kontostand/Votepoints.");
