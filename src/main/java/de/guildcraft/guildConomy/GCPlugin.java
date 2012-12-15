@@ -15,7 +15,6 @@ import de.guildcraft.guildConomy.listener.GCLoginListener;
 import de.guildcraft.guildConomy.listener.VotifierEventHandler;
 import de.guildcraft.guildConomy.persistence.Account;
 import de.guildcraft.guildConomy.persistence.Transaction;
-import de.guildcraft.guildConomy.votepointExchange.SignListener;
 
 public class GCPlugin extends JavaPlugin{
 
@@ -60,12 +59,11 @@ public class GCPlugin extends JavaPlugin{
 		config.options().copyDefaults(true);
 		this.saveConfig();
 	}
-	
+
 	private void registerEvents() {
 		PluginManager manager = this.getServer().getPluginManager();
 		manager.registerEvents(new VotifierEventHandler(this), this);
 		manager.registerEvents(new GCLoginListener(this), this);
-		manager.registerEvents(new SignListener(this), this);
 	}
 	
 	private void setupPersistence() {
